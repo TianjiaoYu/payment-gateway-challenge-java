@@ -6,9 +6,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * Application-level configuration. Provides configured RestTemplate instances used by clients.
+ */
 @Configuration
 public class ApplicationConfiguration {
 
+  /**
+   * RestTemplate bean configured with sensible timeouts for external HTTP calls.
+   */
   @Bean
   public RestTemplate restTemplate(RestTemplateBuilder builder) {
     return builder
