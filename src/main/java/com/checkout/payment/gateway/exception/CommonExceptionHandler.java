@@ -41,7 +41,7 @@ public class CommonExceptionHandler {
 
   /**
    * Converts a {@link PaymentNotFoundException} into an HTTP 404 response with a
-   * generic "Page not found" body. Logged at INFO since lookup misses are normal traffic.
+   * generic "Payment not found" body. Logged at INFO since lookup misses are normal traffic.
    *
    * @param ex the not-found signal raised by the service layer
    * @return 404 Not Found with a generic error body
@@ -49,7 +49,7 @@ public class CommonExceptionHandler {
   @ExceptionHandler(PaymentNotFoundException.class)
   public ResponseEntity<ErrorResponse> handleNotFound(PaymentNotFoundException ex) {
     LOG.info("Payment lookup miss: {}", ex.getMessage());
-    return new ResponseEntity<>(new ErrorResponse("Page not found"), HttpStatus.NOT_FOUND);
+    return new ResponseEntity<>(new ErrorResponse("Payment not found"), HttpStatus.NOT_FOUND);
   }
 
   /**

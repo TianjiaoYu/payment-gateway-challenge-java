@@ -132,7 +132,7 @@ public class PaymentGatewayService {
   }
 
   /**
-   * Validates that amount is a positive integer (in smallest currency unit).
+   * Validates that amount is a positive integer (in the smallest currency unit).
    */
   private void validateAmount(int amount) {
     if (amount <= 0) {

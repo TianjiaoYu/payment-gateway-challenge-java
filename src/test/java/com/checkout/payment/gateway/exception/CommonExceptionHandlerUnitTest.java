@@ -34,7 +34,7 @@ class CommonExceptionHandlerUnitTest {
 
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     assertThat(response.getBody()).isNotNull();
-    assertThat(response.getBody().getMessage()).isEqualTo("Page not found");
+    assertThat(response.getBody().getMessage()).isEqualTo("Payment not found");
   }
 
   @Test

@@ -15,14 +15,6 @@ class PaymentsRepositoryUnitTest {
 
   private final PaymentsRepository repository = new PaymentsRepository();
 
-  private PostPaymentResponse paymentWith(UUID id, int amount) {
-    PostPaymentResponse p = new PostPaymentResponse();
-    p.setId(id);
-    p.setStatus(PaymentStatus.AUTHORIZED);
-    p.setAmount(amount);
-    return p;
-  }
-
   @Test
   void get_returnsStoredPayment_afterAdd() {
     UUID id = UUID.randomUUID();
@@ -50,5 +42,13 @@ class PaymentsRepositoryUnitTest {
         .get()
         .extracting(PostPaymentResponse::getAmount)
         .isEqualTo(200);
+  }
+
+  private PostPaymentResponse paymentWith(UUID id, int amount) {
+    PostPaymentResponse p = new PostPaymentResponse();
+    p.setId(id);
+    p.setStatus(PaymentStatus.AUTHORIZED);
+    p.setAmount(amount);
+    return p;
   }
 }

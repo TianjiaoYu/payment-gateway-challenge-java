@@ -1,25 +1,130 @@
-# Instructions for candidates
+# Payment Gateway
 
-This is the Java version of the Payment Gateway challenge. If you haven't already read this [README.md](https://github.com/cko-recruitment/) on the details of this exercise, please do so now.
+A Spring Boot payment gateway implementation for the Checkout.com engineering challenge.
+
+The application validates payment requests, forwards valid payments to a simulated acquiring bank, and stores payment results for later retrieval.
+
+Supported payment outcomes:
+
+- Authorized
+- Declined
+- Rejected
+
+---
+
+## Tech Stack
+
+- Java 17
+- Spring Boot
+- Gradle
+- JUnit 5
+- Mockito
+- Docker
+- OpenAPI / Swagger UI
+
+---
 
 ## Requirements
+
 - JDK 17
 - Docker
 
-## Template structure
+---
 
-src/ - A skeleton SpringBoot Application
+## Running the Application
 
-test/ - Some simple JUnit tests
+### 1. Start the bank simulator
 
-imposters/ - contains the bank simulator configuration. Don't change this
+```bash
+docker compose up
+```
 
-.editorconfig - don't change this. It ensures a consistent set of rules for submissions when reformatting code
+The bank simulator runs on:
 
-docker-compose.yml - configures the bank simulator
+```text
+http://localhost:8080
+```
 
+---
+
+### 2. Start the Spring Boot application
+
+Mac/Linux:
+
+```bash
+./gradlew bootRun
+```
+
+Windows:
+
+```powershell
+.\gradlew.bat bootRun
+```
+
+The application runs on:
+
+```text
+http://localhost:8090
+```
+
+---
 
 ## API Documentation
-For documentation openAPI is included, and it can be found under the following url: **http://localhost:8090/swagger-ui/index.html**
 
-**Feel free to change the structure of the solution, use a different library etc.**
+Swagger UI:
+
+```text
+http://localhost:8090/swagger-ui/index.html
+```
+
+---
+
+## API Endpoints
+
+### Process Payment
+
+```http
+POST /api/payments
+```
+
+Example request:
+
+```json
+{
+  "card_number": "4111111111111111",
+  "expiry_month": 12,
+  "expiry_year": 2027,
+  "currency": "USD",
+  "amount": 1050,
+  "cvv": "123"
+}
+```
+
+---
+
+### Retrieve Payment
+
+```http
+GET /api/payments/{id}
+```
+
+---
+
+
+## Running Tests
+
+Run all tests:
+
+```bash
+./gradlew test
+```
+
+---
+
+## Notes
+
+- Full card numbers are never returned in API responses
+- Only the last four digits are exposed
+- CVV values are never persisted
+- Payments are stored in-memory using `ConcurrentHashMap`
+- The bank simulator configuration under `imposters/` was left unchanged
